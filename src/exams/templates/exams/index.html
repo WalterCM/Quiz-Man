@@ -1,0 +1,9 @@
+[% if latest_exam_list %]
+    <ul>
+    [% for exam in latest_exam_list %]
+        <li><a href="/exams/{{ exam.id }}/">{{ exam.exam_name }}</a></li>
+    [% endfor %]
+    </ul>
+[% else %]
+    <p>No hay examenes disponibles.</p>
+[% endif %]
