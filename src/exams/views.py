@@ -34,10 +34,20 @@ def evaluate(request, exam_id):
 
         response += str(choice_id) + " "
         selected_choices[question.id] = choice_id
-    reversestr = reverse('exams:results', args=(exam_id,))
-    print("reverse " + reversestr)
-    return render(reversestr)
+    #reversestr = reverse('exams:results', args=(exam_id,))
+    #print("reverse " + reversestr)
+    #return render(reversestr)
 
-def results(request, exam_id):
+    return results(request, exam_id, selected_choices)
+
+def results(request, exam_id, selected_choices):
     exam = get_object_or_404(Exam, pk=exam_id)
-    return render(request, 'exams/results.html', {'exam': exam})
+    correct_count = 0
+    total_count = len(exam.question_set.all())
+    for question in exam.question_set.all():
+        choice_id = selected_choices[question.id]
+        if choice_id is not -1 and Choice.objects.get(pk=choice_id).is_correct():
+            correct_count += 1
+
+    percentage = correct_count / total_count * 100
+    return render(request, 'exams/results.html', {'percentage': percentage})
