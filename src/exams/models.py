@@ -15,11 +15,14 @@ class Question(models.Model):
 class Choice(models.Model):
     question = models.ForeignKey(Question, on_delete=models.CASCADE)
     choice_text = models.CharField(max_length=200)
+    correct = models.BooleanField(default=0)
     def __str__(self):
         return self.choice_text
+    def is_correct(self):
+        return bool(self.correct)
 
 class Tag(models.Model):
-    question = models.ForeignKey(Question, on_delete=models.CASCADE)
+    question = models.ManyToManyField(Question)
     tag_text = models.CharField(max_length=200)
     def __str__(self):
-        return self.tag_Text
+        return self.tag_text

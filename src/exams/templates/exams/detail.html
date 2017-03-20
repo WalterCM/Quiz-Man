@@ -1,0 +1,15 @@
+<h1>{{ exam.exam_name }}</h1>
+
+<form action="{% url 'exams:evaluate' exam.id %}" method="post">
+{% csrf_token %}
+
+{% for question in exam.question_set.all %}
+    <li>{{ question.question_text }}</li>
+    {% for choice in question.choice_set.all %}
+        <input type="radio" name="question{{ question.id }}" id="choice{{ forloop.counter }}" value="{{ choice.id }}" />
+        <label for="choice{{ forloop.counter }}"> {{ choice.choice_text }}</label><br />
+    {% endfor %}
+{% endfor %}
+
+<input type="submit" value="Calificar" />
+</form>
