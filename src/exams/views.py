@@ -7,7 +7,7 @@ from .models import Exam, Question, Choice, Tag
 
 def index(request):
     exam_list = Exam.objects.order_by('-pub_date')
-    for exam in latest_exam_list:
+    for exam in exam_list:
         print(exam.exam_name)
     context = {
         'exam_list':exam_list
