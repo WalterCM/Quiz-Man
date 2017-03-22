@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+
+{% block title %}Crear examen{% endblock %}
+{% block header %}Crear examen{% endblock %}
+
+{% block content %}
+{% if tags %}
+    <ul>
+    {% for tag in tags %}
+        <label class="checkbox-inline" for="tag{{ tag.id }}">
+            <input type="checkbox" name="tag{{ tag.id }}" id="tag{{ tag.id }}" value="{{ tag.id }}" /> {{ tag.tag_text }}
+        </label>
+    {% endfor %}
+    </ul>
+{% endif %}
+{% endblock %}

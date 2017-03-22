@@ -3,7 +3,7 @@ from django.shortcuts import render, get_object_or_404
 from django.http import HttpResponse, HttpResponseRedirect
 from django.urls import reverse
 
-from .models import Exam, Choice
+from .models import Exam, Question, Choice, Tag
 
 def index(request):
     latest_exam_list = Exam.objects.order_by('-pub_date')[:5]
@@ -18,6 +18,12 @@ def index(request):
 def detail(request, exam_id):
     exam = get_object_or_404(Exam, pk=exam_id)
     return render(request, 'exams/detail.html', {'exam':exam})
+
+def create(request):
+    tags = Tag.objects.all()
+    sorted(tags, key=lambda tag: tag.tag_text)
+    questions = Question.objects.all()
+    return render(request, 'exams/create.html', {'tags':tags, 'questions':questions})
 
 def evaluate(request, exam_id):
     exam = get_object_or_404(Exam, pk=exam_id)
