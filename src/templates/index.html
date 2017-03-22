@@ -1,0 +1,27 @@
+{% extends "base.html" %}
+
+{% block title %}QuizMan{% endblock %}
+{% block header %}QuizMan{% endblock %}
+
+{% block content %}
+    <p>QuizMan es una administrador de pruebas academicas<p>
+    <p>Puedes crear tus examenes usando las etiquetas de las preguntas o resolver examenes pasados<p>
+    <ul>
+        <li>Para crear un examen, presione en crear</li>
+        <li>Para resolver un examen pasado o para ver la lista de examenes presione en examenes</li>
+        <li>Para ver el historial de resoluciones de examenes relacionado a la cuenta, presione historial</li>
+    </ul>
+
+    <br />
+
+    <p>Aqui hay una lista de los ultimos examenes gregados<p>
+    {% if latest_exam_list %}
+        <ul>
+        {% for exam in latest_exam_list %}
+            <li><a href="{% url 'exams:detail' exam.id %}">{{ exam.exam_name }}</a></li>
+        {% endfor %}
+        </ul>
+    {% else %}
+        <p>No hay examenes disponibles.</p>
+    {% endif %}
+{% endblock %}

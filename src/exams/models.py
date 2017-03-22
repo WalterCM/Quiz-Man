@@ -10,7 +10,7 @@ class Exam(models.Model):
 
 class Question(models.Model):
     exam = models.ManyToManyField(Exam, through='ExamQuestion')
-    question_text = models.CharField(max_length=200)
+    question_text = models.CharField(max_length=600)
     def __str__(self):
         return self.question_text
 

@@ -6,11 +6,11 @@ from django.urls import reverse
 from .models import Exam, Question, Choice, Tag
 
 def index(request):
-    latest_exam_list = Exam.objects.order_by('-pub_date')[:5]
+    exam_list = Exam.objects.order_by('-pub_date')
     for exam in latest_exam_list:
         print(exam.exam_name)
     context = {
-        'latest_exam_list': latest_exam_list
+        'exam_list':exam_list
     }
 
     return render(request, 'exams/index.html', context)
